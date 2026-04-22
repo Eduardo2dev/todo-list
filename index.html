@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List Neon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>To-Do List</h1>
+    <p id="counter"></p>
+
+    <input type="text" id="searchInput" placeholder="🔎 Buscar tarefa..." class="search">
+
+    <div class="input-area">
+      <input type="text" id="taskInput" placeholder="Digite uma tarefa">
+      <button id="addTaskBtn">Adicionar</button>
+    </div>
+
+    <div class="filters">
+      <button class="active" onclick="setFilter('all', event)">Todas</button>
+      <button onclick="setFilter('done', event)">Concluídas</button>
+      <button onclick="setFilter('pending', event)">Pendentes</button>
+    </div>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
