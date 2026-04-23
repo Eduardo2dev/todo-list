@@ -1,11 +1,49 @@
+:root {
+  --bg-body: linear-gradient(135deg, #dbeafe, #93c5fd);
+  --bg-container: white;
+  --text-main: #333;
+  --text-secondary: #666;
+  --bg-input: #fdfdfd;
+  --border-color: #eee;
+  --accent-color: #667eea;
+  --task-done-bg: #f1f1f1;
+}
+
+body.dark-mode {
+  --bg-body: linear-gradient(135deg, #0f172a, #1e293b);
+  --bg-container: #1e293b;
+  --text-main: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --bg-input: #0f172a;
+  --border-color: #334155;
+  --task-done-bg: #16202e;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+  background: var(--bg-body);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--bg-container);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  z-index: 10;
 }
 
 .container {
@@ -13,14 +51,13 @@ body {
   padding: 25px;
   border-radius: 15px;
   width: 380px;
-  z-index: 1;
-  background: white;
+  background: var(--bg-container);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition: background 0.3s ease;
 }
 
-/* Borda Neon */
 .container::before {
   pointer-events: none;
   content: "";
@@ -28,157 +65,84 @@ body {
   inset: 0;
   border-radius: 15px;
   padding: 2px; 
-  background: linear-gradient(
-    45deg,
-    #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff00cc
-  );
+  background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff00cc);
   background-size: 300%;
   animation: glow 6s linear infinite;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
 
-h1 {
-  text-align: center;
-  margin: 0;
-  color: #333;
+h1 { text-align: center; margin: 0; color: var(--text-main); }
+
+/* Estilo do Dashboard de Estatísticas */
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-#counter {
-  text-align: center;
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: -5px;
-  font-weight: 500;
-}
+.stats-item { display: flex; flex-direction: column; align-items: center; }
+.stats-item strong { color: var(--accent-color); font-size: 1.1rem; }
 
-.search {
+.search, input#taskInput {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #eee;
-  background: #fdfdfd;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-main);
   outline: none;
-  transition: 0.3s;
-}
-
-.search:focus {
-  border-color: #667eea;
-  background: #fff;
-}
-
-.input-area {
-  display: flex;
-  gap: 10px;
-}
-
-input#taskInput {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
+  box-sizing: border-box;
 }
 
 button#addTaskBtn {
   padding: 10px 15px;
   border: none;
   border-radius: 8px;
-  background: #667eea;
+  background: var(--accent-color);
   color: white;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s;
 }
 
-button#addTaskBtn:hover {
-  background: #5a67d8;
-}
-
-.filters {
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-}
-
+.filters { display: flex; gap: 5px; }
 .filters button {
   flex: 1;
   padding: 8px;
   border: none;
   border-radius: 8px;
-  background: #eee;
-  color: #333;
+  background: var(--border-color);
+  color: var(--text-main);
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: 0.2s;
+  font-size: 0.8rem;
 }
 
-.filters button.active {
-  background: #667eea;
-  color: white;
-}
+.filters button.active { background: var(--accent-color); color: white; }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
-  max-height: 280px;
-  overflow-y: auto;
-}
+ul { list-style: none; padding: 0; margin: 10px 0 0 0; max-height: 280px; overflow-y: auto; }
 
 li {
-  background: #fdfdfd;
+  background: var(--bg-input);
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #eee;
-  transition: 0.3s;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
 }
 
-/* efeito para tarefas concluidas */
-li.done {
-  background: #f1f1f1;
-  opacity: 0.6;
-  transform: scale(0.97);
-}
+li.done { background: var(--task-done-bg); opacity: 0.6; }
+li.done span { text-decoration: line-through; color: var(--text-secondary); }
 
-li span {
-  flex: 1;
-  margin: 0 10px;
-  font-size: 0.95rem;
-  transition: 0.3s;
-}
+.actions button { background: transparent; border: none; cursor: pointer; font-size: 1.1rem; }
 
-li.done span {
-  text-decoration: line-through;
-  color: #888;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-}
-
-.actions button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0;
-  transition: transform 0.2s;
-}
-
-.actions button:hover {
-  transform: scale(1.25);
-}
-
-@keyframes glow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
+@keyframes glow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
